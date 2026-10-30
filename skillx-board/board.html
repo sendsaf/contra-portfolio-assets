@@ -1,0 +1,141 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{--purple:#804E8C;--deep:#2E1A36;--blue:#2772B4;--yellow:#8FC1EE;--paper:#FDFDF7;--ink:#1A1A1A;--line:#E4E4E4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;background:var(--paper);font-family:'Instrument Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.panel{display:none;position:relative;width:1920px;overflow:hidden}
+.panel.on{display:block}
+.mono{font-family:'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;font-size:20px}
+/* browser frame: sharp, thin, one hairline */
+.browser{background:#fff;border:1px solid rgba(0,0,0,.14);box-shadow:0 40px 90px -30px rgba(20,10,30,.45)}
+.browser .bar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid var(--line);background:#F6F6F2}
+.browser .bar i{width:11px;height:11px;border-radius:50%;background:#D6D6D0}
+.browser .bar span{margin-left:18px;font-family:'Geist Mono',monospace;font-size:15px;color:#77756f}
+.browser img{display:block;width:100%}
+
+/* 1 hero */
+#hero{height:1640px;background:var(--deep);color:#fff}
+#hero .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:160px 160px}
+#hero .top{position:absolute;left:160px;right:160px;top:120px;display:flex;justify-content:space-between;align-items:flex-start}
+#hero .top img{height:72px}
+#hero .top .mono{color:rgba(255,255,255,.6);text-align:right;line-height:1.7}
+#hero h1{position:absolute;left:160px;top:300px;font-size:220px;line-height:.9;font-weight:700;letter-spacing:-.045em}
+#hero h1 em{font-style:normal;color:var(--yellow)}
+#hero .sub{position:absolute;left:166px;top:720px;font-size:34px;line-height:1.35;max-width:820px;color:rgba(255,255,255,.78)}
+#hero .browser{position:absolute;left:480px;top:900px;width:1280px}
+#hero .tag{position:absolute;left:160px;top:960px;width:250px;border-top:2px solid var(--yellow);padding-top:18px;font-size:24px;line-height:1.4;color:rgba(255,255,255,.8)}
+#hero .tag b{display:block;font-size:56px;color:#fff;letter-spacing:-.03em;margin-bottom:6px}
+
+/* 2 system */
+#system{height:1180px;padding:150px 160px}
+#system .row{display:grid;grid-template-columns:520px 1fr;gap:120px}
+#system h2{font-size:96px;line-height:.95;letter-spacing:-.04em;font-weight:700}
+#system h2 span{color:var(--purple)}
+#system p{font-size:30px;line-height:1.45;color:#3d3b38;margin-top:36px}
+.sw{display:grid;grid-template-columns:repeat(5,1fr);height:360px}
+.sw div{padding:24px;display:flex;flex-direction:column;justify-content:flex-end;font-family:'Geist Mono',monospace;font-size:18px;line-height:1.6}
+.type{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #cfcdc6}
+.type div{padding:36px 0 0;}
+.type .big{font-size:150px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.type .name{font-size:34px;font-weight:600;margin-top:20px}
+.type .use{font-size:22px;color:#6b6964;margin-top:8px}
+
+/* section header used by page panels */
+.head{display:flex;justify-content:space-between;align-items:flex-end;padding:150px 160px 80px}
+.head h2{font-size:150px;line-height:.9;letter-spacing:-.05em;font-weight:700}
+.head .mono{color:#6b6964;text-align:right;line-height:1.7}
+
+/* 3/4 home */
+.home{background:var(--paper);height:6440px}
+.home .browser{margin:0 340px}
+.home2{background:var(--purple);height:6190px}
+.home2 .browser{margin:160px 340px}
+.home .note{position:absolute;left:160px;width:150px;font-size:20px;line-height:1.4;color:#6b6964;border-top:2px solid var(--purple);padding-top:14px}
+
+/* 5 pages */
+#pages{height:1660px;background:var(--blue);color:#fff}
+#pages .head .mono{color:rgba(255,255,255,.7)}
+#pages .pair{display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:0 160px}
+#pages .cap{margin-top:26px;font-size:28px;font-weight:600}
+#pages .cap small{display:block;font-family:'Geist Mono',monospace;font-weight:400;font-size:17px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+#pages2{height:1660px;background:var(--paper)}
+#pages2 .pair{display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:0 160px}
+#pages2 .cap{margin-top:26px;font-size:28px;font-weight:600}
+#pages2 .cap small{display:block;font-family:'Geist Mono',monospace;font-weight:400;font-size:17px;letter-spacing:.08em;text-transform:uppercase;color:#6b6964;margin-bottom:6px}
+
+/* 6 close */
+#close{height:900px;background:var(--deep);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 160px}
+#close p{font-size:110px;line-height:1;letter-spacing:-.045em;font-weight:700;max-width:1400px}
+#close p em{font-style:normal;color:var(--yellow)}
+#close .foot{position:absolute;left:160px;right:160px;bottom:110px;display:flex;justify-content:space-between;align-items:center}
+#close .foot img{height:56px}
+#close .foot .mono{color:rgba(255,255,255,.6)}
+</style></head>
+<body>
+
+<section class="panel" id="hero"><div class="grid"></div>
+ <div class="top"><img src="logo-w.svg"><div class="mono">Website design<br>Interval Learning · Kerala</div></div>
+ <h1>SkillX<br><em>website.</em></h1>
+ <div class="sub">A skill-training platform built to turn walk-in interest into enrolments.</div>
+ <div class="tag"><b>01</b>Course architecture, enquiry funnel and landing experience.</div>
+ <div class="browser"><div class="bar"><i></i><i></i><i></i><span>intervalskillx.com</span></div><img src="hero.jpg"></div>
+</section>
+
+<section class="panel" id="system">
+ <div class="row">
+  <div><h2>Colour<br><span>and type.</span></h2>
+  <p>Purple and blue come straight from the SkillX mark. Instrument Sans carries every headline, paragraph and button, with Geist Mono for small labels.</p></div>
+  <div>
+   <div class="sw">
+    <div style="background:#804E8C;color:#fff">Purple<br>#804E8C</div>
+    <div style="background:#2772B4;color:#fff">Blue<br>#2772B4</div>
+    <div style="background:#E4E4E4;color:#1a1a1a">Line<br>#E4E4E4</div>
+    <div style="background:#FDFDF7;color:#1a1a1a;border:1px solid #d9d7cf">Paper<br>#FDFDF7</div>
+    <div style="background:#1A1A1A;color:#fff">Ink<br>#1A1A1A</div>
+   </div>
+   <div class="type">
+    <div><div class="big">Aa</div><div class="name">Instrument Sans</div><div class="use">Headlines, body and buttons</div></div>
+    <div><div class="big" style="font-family:'Geist Mono';font-weight:500;font-size:120px">01</div><div class="name">Geist Mono</div><div class="use">Labels, numbers and details</div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="panel home" id="home1">
+ <div class="head"><h2>Home page</h2><div class="mono">Part 1 of 2<br>Hero · proof · courses</div></div>
+ <div class="browser"><div class="bar"><i></i><i></i><i></i><span>intervalskillx.com</span></div><img src="home1.jpg"></div>
+ <div style="height:160px"></div>
+</section>
+
+<section class="panel home home2" id="home2">
+ <div class="browser"><img src="home2.jpg"></div>
+</section>
+
+<section class="panel" id="pages">
+ <div class="head"><h2>Course pages</h2><div class="mono">Digital marketing<br>Graphic design</div></div>
+ <div class="pair">
+  <div><div class="browser"><div class="bar"><i></i><i></i><i></i><span>/courses/digital-marketing</span></div><img src="dm.jpg"></div><div class="cap"><small>01</small>Digital Marketing Course</div></div>
+  <div><div class="browser"><div class="bar"><i></i><i></i><i></i><span>/courses/graphic-designing</span></div><img src="gd.jpg"></div><div class="cap"><small>02</small>Graphic Design Course</div></div>
+ </div>
+</section>
+
+<section class="panel" id="pages2">
+ <div class="head"><h2>Stories &amp; About</h2><div class="mono">Student proof<br>Who SkillX is</div></div>
+ <div class="pair">
+  <div><div class="browser"><div class="bar"><i></i><i></i><i></i><span>/skillx-stories</span></div><img src="st.jpg"></div><div class="cap"><small>03</small>SkillX Stories</div></div>
+  <div><div class="browser"><div class="bar"><i></i><i></i><i></i><span>/about</span></div><img src="ab.jpg"></div><div class="cap"><small>04</small>About</div></div>
+ </div>
+</section>
+
+<section class="panel" id="close">
+ <p>X is the skill that <em>multiplies</em> your potential.</p>
+ <div class="foot"><img src="logo-w.svg"><div class="mono">intervalskillx.com · Designed by Saf</div></div>
+</section>
+
+<script>
+const id=(location.hash||'#hero').slice(1);
+document.getElementById(id).classList.add('on');
+</script>
+</body></html>
