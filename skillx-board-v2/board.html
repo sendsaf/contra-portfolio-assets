@@ -1,0 +1,173 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Anton&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{--purple:#804E8C;--deep:#2A1733;--plum:#4B2557;--blue:#2772B4;--sky:#8FC1EE;--paper:#FDFDF7;--ink:#1A1A1A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;font-family:'Instrument Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;background:#000}
+.panel{display:none;position:relative;width:1920px;overflow:hidden}
+.panel.on{display:block}
+.mono{font-family:'Geist Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-size:20px}
+.placed{font-family:'Anton',sans-serif;line-height:.82;letter-spacing:-.01em;color:transparent;-webkit-text-stroke:3px rgba(255,255,255,.22);white-space:nowrap;position:absolute}
+.frame{position:absolute;background:#fff;border-radius:22px;padding:14px;box-shadow:0 60px 120px -40px rgba(10,0,20,.6)}
+.frame img{display:block;width:100%;border-radius:12px}
+.cut{position:absolute;filter:drop-shadow(0 30px 40px rgba(10,0,20,.35))}
+.pill{display:inline-flex;align-items:center;gap:18px;border-radius:999px;padding:20px 22px 20px 34px;font-weight:600;font-size:28px}
+.pill b{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:22px}
+.x{position:absolute;overflow:hidden}
+.x img{position:absolute;height:100%;right:0;top:0}
+h2.title{position:absolute;font-weight:700;letter-spacing:-.05em;line-height:.88}
+
+/* HERO */
+#hero{height:2050px;background:radial-gradient(1200px 900px at 75% 20%,#6A3A78 0%,transparent 60%),linear-gradient(160deg,var(--deep) 0%,var(--plum) 55%,#3A2E7A 100%)}
+#hero .placed{font-size:640px;left:-40px;top:120px}
+#hero .logo{position:absolute;left:150px;top:110px;height:70px}
+#hero .meta{position:absolute;right:150px;top:118px;color:rgba(255,255,255,.65);text-align:right;line-height:1.7}
+#hero h1{position:absolute;left:150px;top:330px;color:#fff;font-size:250px;line-height:.86;font-weight:700;letter-spacing:-.055em}
+#hero h1 span{display:block;font-size:120px;letter-spacing:-.035em;color:var(--sky);margin-top:26px;font-weight:600}
+#hero .lede{position:absolute;left:156px;top:800px;width:540px;color:rgba(255,255,255,.8);font-size:32px;line-height:1.4}
+#hero .pills{position:absolute;left:150px;top:990px;display:flex;gap:20px}
+#hero .frame{left:800px;top:560px;width:1220px}
+#hero .stage{position:absolute;left:0;right:0;bottom:0;height:900px}
+/* SYSTEM */
+#system{height:1400px;background:var(--paper)}
+#system h2.title{left:150px;top:150px;font-size:170px}
+#system h2.title em{font-style:normal;color:var(--purple)}
+#system .pals{position:absolute;left:150px;top:520px;display:flex;flex-direction:column;gap:22px}
+#system .pals .pill{width:620px;justify-content:space-between;font-size:30px}
+#system .pals .pill span{font-family:'Geist Mono';font-weight:400;font-size:22px;opacity:.8}
+#system .type{position:absolute;left:880px;top:520px;width:640px;height:700px;background:linear-gradient(150deg,var(--purple),#5B3A95 60%,var(--blue));border-radius:28px;color:#fff;padding:60px;overflow:hidden}
+#system .type .aa{font-size:330px;font-weight:700;letter-spacing:-.06em;line-height:.8}
+#system .type .nm{font-size:56px;font-weight:600;margin-top:40px;letter-spacing:-.02em}
+#system .type .gl{font-size:26px;line-height:1.5;opacity:.75;margin-top:14px;width:430px}
+#system .type .mono{position:absolute;left:60px;bottom:50px;opacity:.7}
+#system .m1{right:-120px;bottom:0;height:880px}
+/* HOME */
+.home{background:linear-gradient(180deg,var(--purple) 0px,var(--purple) 900px,var(--deep) 2400px,var(--deep) 100%)}
+.home h2.title{left:150px;top:150px;font-size:230px;color:#fff}
+.home .mono.side{position:absolute;right:150px;top:200px;color:rgba(255,255,255,.7);text-align:right;line-height:1.7}
+.home .placed{font-size:420px;-webkit-text-stroke:2px rgba(255,255,255,.12)}
+#home1{height:6620px}
+#home1 .frame{left:340px;top:520px;width:1240px}
+#home2{height:6260px;background:linear-gradient(180deg,var(--deep),#2C2A6E 60%,var(--blue))}
+#home2 .frame{left:340px;top:150px;width:1240px}
+/* COURSES */
+#courses{height:2400px;background:var(--blue)}
+#courses h2.title{left:150px;top:150px;font-size:230px;color:#fff}
+#courses .placed{font-size:520px;right:-60px;top:60px;-webkit-text-stroke:2px rgba(255,255,255,.18)}
+#courses .f1{left:-60px;top:640px;width:1000px}
+#courses .f2{left:900px;top:860px;width:1100px}
+#courses .s2{left:640px;top:330px;height:640px;z-index:3}
+#courses .cap{position:absolute;color:#fff;font-size:34px;font-weight:600}
+#courses .cap small{display:block;font-family:'Geist Mono';font-weight:400;font-size:18px;letter-spacing:.1em;opacity:.75;margin-bottom:8px}
+/* STORIES */
+#stories{height:2500px;background:var(--paper)}
+#stories h2.title{left:150px;top:150px;font-size:230px}
+#stories h2.title em{font-style:normal;color:var(--purple)}
+#stories .ph{position:absolute;object-fit:cover;box-shadow:0 30px 60px -30px rgba(0,0,0,.4)}
+#stories .f1{left:150px;top:980px;width:860px}
+#stories .f2{left:1060px;top:1180px;width:860px}
+#stories .cap{position:absolute;font-size:34px;font-weight:600}
+#stories .cap small{display:block;font-family:'Geist Mono';font-weight:400;font-size:18px;letter-spacing:.1em;color:#6b6964;margin-bottom:8px}
+/* CLOSE */
+#close{height:1400px;background:linear-gradient(160deg,var(--deep),var(--plum) 60%,#3A2E7A)}
+#close .placed{font-size:640px;left:-30px;bottom:-60px}
+#close p{position:absolute;left:150px;top:220px;width:820px;color:#fff;font-size:132px;font-weight:700;letter-spacing:-.05em;line-height:.92}
+#close p em{font-style:normal;color:var(--sky)}
+#close .founders{right:-20px;bottom:0;height:960px}
+#close .foot{position:absolute;left:150px;bottom:110px;display:flex;gap:40px;align-items:center;color:rgba(255,255,255,.65)}
+#close .foot img{height:60px}
+</style></head>
+<body>
+
+<!-- HERO -->
+<section class="panel" id="hero">
+ <div class="placed">PLACED</div>
+ <img class="logo" src="logo-w.svg">
+ <div class="meta mono">Website design<br>Interval Learning · Kerala</div>
+ <h1>SkillX<span>web design</span></h1>
+ <div class="lede">A skill-training platform built to turn walk-in interest into enrolments.</div>
+ <div class="pills">
+  <div class="pill" style="background:#fff;color:var(--ink)">Enroll Now <b style="background:var(--purple);color:#fff">→</b></div>
+  <div class="pill" style="border:2px solid rgba(255,255,255,.5);color:#fff">Download Brochure</div>
+ </div>
+ <div class="frame"><img src="hero.jpg"></div>
+ <img class="cut" src="s3.png" style="left:150px;bottom:0;height:820px;z-index:2">
+ <img class="cut" src="s2.png" style="left:560px;bottom:0;height:900px;z-index:3">
+ <img class="cut" src="s1.png" style="left:960px;bottom:0;height:860px;z-index:2">
+ <img class="cut" src="s4.png" style="left:1340px;bottom:0;height:910px;z-index:3">
+</section>
+
+<!-- SYSTEM -->
+<section class="panel" id="system">
+ <h2 class="title">Colour<br><em>&amp; type.</em></h2>
+ <div class="pals">
+  <div class="pill" style="background:#804E8C;color:#fff">Interval Purple <span>#804E8C</span></div>
+  <div class="pill" style="background:#2772B4;color:#fff">SkillX Blue <span>#2772B4</span></div>
+  <div class="pill" style="background:#1A1A1A;color:#fff">Ink <span>#1A1A1A</span></div>
+  <div class="pill" style="background:#fff;color:#1a1a1a;box-shadow:inset 0 0 0 2px #E4E4E4">Paper <span>#FDFDF7</span></div>
+  <div class="pill" style="background:#E4E4E4;color:#1a1a1a">Line <span>#E4E4E4</span></div>
+ </div>
+ <div class="type">
+  <div class="aa">Aa</div>
+  <div class="nm">Instrument Sans</div>
+  <div class="gl">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</div>
+  <div class="mono">With Geist Mono for labels</div>
+ </div>
+ <img class="cut m1" src="m1.png">
+</section>
+
+<!-- HOME 1 -->
+<section class="panel home" id="home1">
+ <div class="placed" style="left:-30px;top:2300px">SKILLX</div>
+ <div class="placed" style="right:-40px;top:4200px">PLACED</div>
+ <h2 class="title">Home page</h2>
+ <div class="mono side">Part 1 / 2<br>Hero · proof · courses</div>
+ <div class="frame"><img src="home1.jpg"></div>
+ <img class="cut" src="m2.png" style="left:1480px;top:120px;height:520px;z-index:3">
+</section>
+
+<!-- HOME 2 -->
+<section class="panel home" id="home2">
+ <div class="placed" style="left:-40px;top:1600px">PLACED</div>
+ <div class="placed" style="right:-30px;top:3900px">SKILLX</div>
+ <div class="frame"><img src="home2.jpg"></div>
+</section>
+
+<!-- COURSES -->
+<section class="panel" id="courses">
+ <div class="placed">COURSES</div>
+ <h2 class="title">Course<br>pages</h2>
+ <div class="frame f1"><img src="dm.jpg"></div>
+ <div class="frame f2"><img src="gd.jpg"></div>
+ <img class="cut s2" src="s5.png">
+ <div class="cap" style="left:150px;top:2250px"><small>01</small>Digital Marketing Course</div>
+ <div class="cap" style="left:960px;top:2150px;display:none"></div>
+ <div class="cap" style="right:150px;top:2250px;text-align:right"><small>02</small>Graphic Design Course</div>
+</section>
+
+<!-- STORIES -->
+<section class="panel" id="stories">
+ <h2 class="title">Stories<br><em>&amp; about.</em></h2>
+ <img class="ph" src="DSC00911.jpg" style="left:1000px;top:150px;width:770px;height:520px">
+ <img class="ph" src="DSC04188.jpg" style="left:1300px;top:600px;width:470px;height:330px">
+ <img class="ph" src="DSC04164.jpg" style="left:760px;top:560px;width:500px;height:340px">
+ <div class="frame f1"><img src="st.jpg"></div>
+ <div class="frame f2"><img src="ab.jpg"></div>
+ <div class="cap" style="left:150px;top:2180px"><small>03</small>SkillX Stories</div>
+ <div class="cap" style="left:1060px;top:2380px"><small>04</small>About</div>
+</section>
+
+<!-- CLOSE -->
+<section class="panel" id="close">
+ <div class="placed">PLACED</div>
+ <p>X is the skill that <em>multiplies</em> your potential.</p>
+ <img class="cut founders" src="founders.png">
+ <div class="foot"><img src="logo-w.svg"><span class="mono">intervalskillx.com · Designed by Saf</span></div>
+</section>
+
+<script>
+const id=(location.hash||'#hero').slice(1);
+document.getElementById(id).classList.add('on');
+</script>
+</body></html>
