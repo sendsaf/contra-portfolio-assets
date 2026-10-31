@@ -1,0 +1,307 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{--purple:#804E8C;--deep:#1D1024;--plum:#43214F;--blue:#2772B4;--sky:#8FC1EE;--paper:#F7F5EE;--ink:#17141A;--line:#E4E4E4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;font-family:'Instrument Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;background:#000}
+.panel{display:none;position:relative;width:1920px;overflow:hidden}
+.panel.on{display:block}
+.mono{font-family:'Geist Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-size:19px}
+.xo{position:absolute;overflow:visible}
+.xo path{fill:none;stroke-width:2px;vector-effect:non-scaling-stroke}
+.frame{position:absolute;background:#fff;border-radius:20px;padding:12px;box-shadow:0 70px 140px -50px rgba(8,0,18,.75),0 0 0 1px rgba(255,255,255,.08)}
+.frame img{display:block;width:100%;border-radius:10px}
+.glow{position:absolute;mix-blend-mode:screen;pointer-events:none}
+.chip{position:absolute;background:#fff;color:var(--ink);border-radius:999px;display:flex;align-items:center;gap:14px;padding:16px 26px;box-shadow:0 24px 50px -20px rgba(8,0,18,.55);font-size:22px;font-weight:600;white-space:nowrap;z-index:4}
+.chip small{display:block;font-weight:500;font-size:17px;color:#6d6874;margin-top:2px}
+.btn{position:absolute;border-radius:999px;display:inline-flex;align-items:center;gap:16px;padding:18px 20px 18px 32px;font-weight:600;font-size:26px;white-space:nowrap;z-index:4}
+.btn b{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:20px}
+.stars{color:#F5B301;letter-spacing:2px}
+h2.t{position:absolute;font-weight:700;letter-spacing:-.06em;line-height:.86}
+.k{position:absolute}
+.rule{position:absolute;height:1px;background:currentColor;opacity:.25}
+.shot{position:absolute;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.7)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* 01 HERO */
+#hero{height:2160px;color:#fff;background:radial-gradient(900px 800px at 76% 26%,#5B2C6B 0%,transparent 65%),linear-gradient(168deg,var(--deep) 0%,#2A1636 42%,#262B6E 100%)}
+#hero .logo{position:absolute;left:150px;top:100px;height:66px}
+#hero .meta{position:absolute;right:150px;top:110px;text-align:right;line-height:1.75;color:rgba(255,255,255,.62)}
+#hero .rule{left:150px;right:150px;top:220px;color:#fff}
+#hero .kicker{left:150px;top:300px;color:var(--sky)}
+#hero h1{position:absolute;left:144px;top:350px;font-size:270px;line-height:.84;font-weight:700;letter-spacing:-.06em}
+#hero h1 span{display:block;font-size:118px;letter-spacing:-.04em;font-weight:500;color:var(--sky);margin-top:30px}
+#hero .lede{position:absolute;left:152px;top:840px;width:520px;font-size:31px;line-height:1.4;color:rgba(255,255,255,.78)}
+#hero .pills{position:absolute;left:150px;top:1010px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+#hero .pills span{border:1.5px solid rgba(255,255,255,.4);border-radius:999px;padding:14px 28px;font-size:24px;font-weight:600}
+#hero .persp{position:absolute;left:760px;top:760px;width:1300px;perspective:2400px;z-index:3}
+#hero .persp .frame{position:relative;transform:rotateY(-16deg) rotateX(4deg);transform-origin:left center}
+#hero .stats{position:absolute;left:152px;top:1860px;display:flex;gap:60px}
+#hero .stats div{border-top:2px solid var(--sky);padding-top:16px;width:230px}
+#hero .stats b{display:block;font-size:56px;letter-spacing:-.03em}
+#hero .stats span{font-size:19px;color:rgba(255,255,255,.65);line-height:1.35;display:block;margin-top:4px}
+/* 02 BRIEF */
+#brief{height:1500px;background:var(--paper)}
+#brief .k{left:150px;top:150px;color:var(--purple)}
+#brief h2.t{left:144px;top:200px;font-size:150px;width:900px;letter-spacing:-.05em;line-height:.9}
+#brief h2 em{font-style:normal;color:var(--purple)}
+#brief .facts{position:absolute;left:150px;top:900px;width:760px;display:grid;grid-template-columns:200px 1fr}
+#brief .facts div{padding:22px 0;border-top:1px solid #d8d4cb;font-size:26px}
+#brief .facts .mono{font-size:17px;color:#7b7684;padding-top:28px}
+#brief .shot{left:1110px;top:150px;width:660px;height:1173px}
+#brief .cap{position:absolute;left:1110px;top:1350px;font-size:22px;color:#6d6874}
+#brief .cap b{color:var(--ink);font-weight:600}
+/* 03 MARK */
+#mark{height:2060px;background:var(--ink);color:#fff}
+#mark .k{left:150px;top:150px;color:var(--sky)}
+#mark h2.t{left:144px;top:200px;font-size:190px}
+#mark h2 em{font-style:normal;color:var(--sky)}
+#mark .side{position:absolute;right:150px;top:230px;width:520px;font-size:28px;line-height:1.45;color:rgba(255,255,255,.72)}
+#mark .side b{color:#fff;font-weight:600}
+#mark .strip{position:absolute;left:150px;width:1620px;display:grid;grid-template-columns:repeat(5,300px);gap:30px}
+#mark .strip figure .im{height:533px;overflow:hidden;background:#000}
+#mark .strip figure img{display:block;width:100%;height:100%;object-fit:cover}
+#mark .strip figcaption{display:flex;justify-content:space-between;margin-top:16px;font-family:'Geist Mono';font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+#mark .strip figcaption b{color:#fff;font-weight:500}
+/* 04 SYSTEM */
+#system{height:1500px;background:var(--paper)}
+#system .k{left:150px;top:150px;color:var(--purple)}
+#system h2.t{left:144px;top:200px;font-size:170px}
+#system h2 em{font-style:normal;color:var(--purple)}
+#system .pals{position:absolute;left:150px;top:600px;display:flex;flex-direction:column;gap:18px}
+#system .pals div{width:620px;height:96px;border-radius:999px;display:flex;justify-content:space-between;align-items:center;padding:0 40px;font-size:30px;font-weight:600}
+#system .pals span{font-family:'Geist Mono';font-weight:400;font-size:20px;opacity:.8}
+#system .mono2{position:absolute;left:150px;top:1200px;width:620px;height:150px;border-radius:26px;background:var(--ink);color:#fff;padding:0 40px;display:flex;align-items:center;gap:36px}
+#system .mono2 b{font-family:'Geist Mono';font-size:72px;font-weight:500}
+#system .mono2 span{font-size:28px;font-weight:600}
+#system .mono2 small{display:block;font-size:18px;opacity:.6;font-weight:500;margin-top:4px}
+#system .type{position:absolute;left:860px;top:600px;width:620px;height:750px;border-radius:26px;color:#fff;padding:54px;overflow:hidden;background:radial-gradient(500px 400px at 90% 0%,rgba(143,193,238,.5),transparent 60%),linear-gradient(150deg,var(--purple),#4E3B96)}
+#system .type .aa{font-size:330px;font-weight:700;letter-spacing:-.06em;line-height:.8}
+#system .type .nm{font-size:52px;font-weight:600;margin-top:40px;letter-spacing:-.02em}
+#system .type .gl{font-size:24px;line-height:1.55;opacity:.78;margin-top:14px}
+#system .type .mono{position:absolute;left:54px;bottom:46px;opacity:.75;font-size:17px}
+#system .shot{left:1540px;top:600px;width:520px;height:750px;border-radius:26px}
+/* 05/06 HOME */
+.home h2.t{left:144px;top:140px;font-size:230px;color:#fff}
+.home .side{position:absolute;right:150px;top:200px;text-align:right;line-height:1.75;color:rgba(255,255,255,.65)}
+.home .lab{position:absolute;left:150px;width:170px;color:rgba(255,255,255,.75);font-size:16px;line-height:1.5;border-top:1px solid rgba(255,255,255,.35);padding-top:12px}
+.home .lab b{display:block;font-family:'Instrument Sans';font-size:22px;letter-spacing:-.01em;text-transform:none;color:#fff;font-weight:600;margin-top:4px}
+#home1{height:6640px;background:linear-gradient(180deg,var(--purple) 0px,#5D3470 1200px,var(--deep) 3200px,var(--deep) 100%)}
+#home1 .frame{left:360px;top:540px;width:1240px}
+#home2{height:6230px;background:linear-gradient(180deg,var(--deep),#2C2A6E 55%,var(--blue))}
+#home2 .frame{left:360px;top:120px;width:1240px}
+/* 07 FUNNEL */
+#funnel{height:1980px;color:#fff;background:radial-gradient(900px 800px at 20% 90%,rgba(128,78,140,.6),transparent 65%),linear-gradient(160deg,#1F4F86 0%,var(--blue) 55%,#3B3D9A 100%)}
+#funnel .k{left:150px;top:150px;color:#fff;opacity:.75}
+#funnel h2.t{left:144px;top:200px;font-size:200px}
+#funnel h2 em{font-style:normal;color:var(--sky)}
+#funnel .lede{position:absolute;left:152px;top:620px;width:620px;font-size:30px;line-height:1.45;color:rgba(255,255,255,.82)}
+#funnel .steps{position:absolute;left:150px;top:860px;width:560px}
+#funnel .steps div{display:flex;gap:26px;align-items:baseline;border-top:1px solid rgba(255,255,255,.3);padding:24px 0;font-size:30px;font-weight:600}
+#funnel .steps div span{font-family:'Geist Mono';font-size:17px;font-weight:400;letter-spacing:.1em;opacity:.7}
+#funnel .phone{position:absolute;left:820px;top:640px;width:470px;height:1010px;border-radius:64px;background:#0d0d10;padding:16px;box-shadow:0 70px 140px -50px rgba(8,0,18,.8);transform:rotate(-4deg);z-index:3}
+#funnel .phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50px}
+#funnel .wide{left:1250px;top:1000px;width:900px;z-index:2}
+#funnel .tab{position:absolute;right:0;top:420px;width:76px;height:300px;background:var(--purple);border-radius:18px 0 0 18px;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:26px;letter-spacing:.02em;box-shadow:0 24px 50px -20px rgba(8,0,18,.6);z-index:4}
+#funnel .fab{position:absolute;width:96px;height:96px;border-radius:50%;display:grid;place-items:center;box-shadow:0 24px 50px -20px rgba(8,0,18,.6);z-index:4}
+/* 08 COURSES */
+#courses{height:2500px;background:radial-gradient(1000px 800px at 85% 10%,rgba(143,193,238,.45),transparent 60%),var(--blue);color:#fff}
+#courses .k{left:150px;top:150px;color:var(--sky)}
+#courses h2.t{left:144px;top:200px;font-size:220px}
+#courses .persp{position:absolute;perspective:2600px}
+#courses .p1{left:100px;top:720px;width:980px}
+#courses .p1 .frame{position:relative;transform:rotateY(14deg) rotateZ(-1deg);transform-origin:left center}
+#courses .p2{left:920px;top:930px;width:1060px}
+#courses .p2 .frame{position:relative;transform:rotateY(-12deg) rotateZ(1deg);transform-origin:right center}
+#courses .toggle{position:absolute;left:150px;top:560px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px;display:flex;gap:6px;font-size:24px;font-weight:600}
+#courses .toggle span{padding:14px 28px;border-radius:999px}
+#courses .cap{position:absolute;font-size:32px;font-weight:600}
+#courses .cap small{display:block;font-family:'Geist Mono';font-weight:400;font-size:17px;letter-spacing:.1em;opacity:.75;margin-bottom:8px}
+/* 09 STORIES */
+#stories{height:2560px;background:var(--paper)}
+#stories .k{left:150px;top:150px;color:var(--purple)}
+#stories h2.t{left:144px;top:200px;font-size:220px}
+#stories h2 em{font-style:normal;color:var(--purple)}
+#stories .print{position:absolute;border:10px solid #fff;box-shadow:0 34px 70px -34px rgba(0,0,0,.45);overflow:hidden}
+#stories .print img{display:block;width:100%;height:100%;object-fit:cover}
+#stories .frame{box-shadow:0 60px 120px -50px rgba(30,10,40,.45),0 0 0 1px rgba(0,0,0,.06)}
+#stories .f1{left:150px;top:1060px;width:840px}
+#stories .f2{left:1070px;top:1260px;width:840px}
+#stories .cap{position:absolute;font-size:32px;font-weight:600}
+#stories .cap small{display:block;font-family:'Geist Mono';font-weight:400;font-size:17px;letter-spacing:.1em;color:#7b7684;margin-bottom:8px}
+/* 10 CLOSE */
+#close{height:1460px;color:#fff;background:radial-gradient(900px 700px at 76% 46%,#4A2459 0%,transparent 65%),linear-gradient(165deg,var(--deep),#2A1636 60%,#262B6E)}
+#close .k{left:150px;top:170px;color:var(--sky)}
+#close p{position:absolute;left:144px;top:240px;width:940px;font-size:124px;font-weight:700;letter-spacing:-.055em;line-height:.9}
+#close p em{font-style:normal;color:var(--sky)}
+#close .foot{position:absolute;left:150px;bottom:110px;display:flex;gap:36px;align-items:center;color:rgba(255,255,255,.65)}
+#close .foot img{height:58px}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><path id="X" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" d="M143.437 21.939L130.906 34.473H122.476L135.106 21.8378L122.47 9.19902H130.899L143.439 21.7412L165.174 0H152.143L137.854 14.2923L123.568 0.00361419H106.89L129.517 22.6366L106.902 45.2587H121.996L137.065 30.1866L152.129 45.2551H166.748L143.437 21.939Z"/></defs></svg>
+
+<!-- 01 HERO -->
+<section class="panel" id="hero">
+ <svg class="xo" viewBox="106 0 62 46" style="left:-260px;top:1160px;width:1500px"><use href="#X" style="stroke:rgba(255,255,255,.1)"/></svg>
+ <svg class="xo" viewBox="106 0 62 46" style="left:1240px;top:-120px;width:900px"><use href="#X" style="stroke:rgba(255,255,255,.08)"/></svg>
+ <img class="logo" src="logo-w.svg">
+ <div class="meta mono">Website design<br>Interval Learning · Kerala</div>
+ <div class="rule"></div>
+ <div class="k mono kicker">Case study · intervalskillx.com</div>
+ <h1>SkillX<span>web design</span></h1>
+ <div class="lede">A skill-training platform built to turn walk-in interest into enrolments.</div>
+ <div class="pills"><span>Digital Marketing</span><span>Graphic Design</span><span>Accounting</span></div>
+ <img class="glow" src="sm-glassx-big.jpg" style="left:820px;top:40px;width:1180px;z-index:2">
+ <div class="persp"><div class="frame"><img src="hero.jpg"></div></div>
+ <div class="chip" style="left:830px;top:1510px"><span class="stars">★★★★★</span><div>5.0<small>Google reviews</small></div></div>
+ <div class="btn" style="left:1500px;top:1600px;background:var(--purple);color:#fff;box-shadow:0 24px 50px -20px rgba(8,0,18,.6)">Enroll Now <b style="background:#fff;color:var(--purple)">→</b></div>
+ <div class="stats">
+  <div><b>3</b><span>Courses</span></div>
+  <div><b>11</b><span>Home page sections</span></div>
+  <div><b>1</b><span>Ask on every page</span></div>
+ </div>
+</section>
+
+<!-- 02 BRIEF -->
+<section class="panel" id="brief">
+ <div class="k mono">00 · The brief</div>
+ <h2 class="t">Walk-in interest, <em>turned into enrolments.</em></h2>
+ <div class="facts">
+  <div class="mono">Client</div><div>Interval Learning · SkillX</div>
+  <div class="mono">Where</div><div>Kerala, India</div>
+  <div class="mono">Scope</div><div>Course architecture, enquiry funnel, landing experience</div>
+  <div class="mono">Live</div><div>intervalskillx.com</div>
+ </div>
+ <div class="shot"><img src="sm-p-slate.jpg"></div>
+ <div class="cap"><b>The X, carved in slate.</b> Made with StarterMotion.</div>
+</section>
+
+<!-- 03 MARK -->
+<section class="panel" id="mark">
+ <div class="k mono">01 · The mark</div>
+ <h2 class="t">One X,<br><em>every surface.</em></h2>
+ <div class="side"><b>The SkillX X, made real</b> on glass, clay, paper, card and metal, then drawn as neon, halftone, stamp and code. Every frame is made with StarterMotion, my own logo-to-reel tool.</div>
+ <div class="strip" style="top:640px">
+  <figure><div class="im"><img src="sm-p-glass.jpg"></div><figcaption><b>01 Glass</b><span>Raised</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-p-tile.jpg"></div><figcaption><b>02 Clay</b><span>Carved</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-p-paper.jpg"></div><figcaption><b>03 Paper</b><span>Printed</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-p-card.jpg"></div><figcaption><b>04 Card</b><span>Printed</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-p-metal.jpg"></div><figcaption><b>05 Metal</b><span>Raised</span></figcaption></figure>
+ </div>
+ <div class="strip" style="top:1300px">
+  <figure><div class="im"><img src="sm-neon.jpg"></div><figcaption><b>06 Neon</b><span>Drawn</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-halftone.jpg"></div><figcaption><b>07 Halftone</b><span>Drawn</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-p-plate.jpg"></div><figcaption><b>08 Plate</b><span>Carved</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-stamp.jpg"></div><figcaption><b>09 Stamp</b><span>Drawn</span></figcaption></figure>
+  <figure><div class="im"><img src="sm-ascii.jpg"></div><figcaption><b>10 Code</b><span>Drawn</span></figcaption></figure>
+ </div>
+</section>
+
+<!-- 04 SYSTEM -->
+<section class="panel" id="system">
+ <div class="k mono">02 · Colour &amp; type</div>
+ <h2 class="t">Purple &amp; blue,<br><em>from the mark.</em></h2>
+ <div class="pals">
+  <div style="background:#804E8C;color:#fff">Interval Purple<span>#804E8C</span></div>
+  <div style="background:#2772B4;color:#fff">SkillX Blue<span>#2772B4</span></div>
+  <div style="background:#17141A;color:#fff">Ink<span>#1A1A1A</span></div>
+  <div style="background:#fff;color:#17141A;box-shadow:inset 0 0 0 2px var(--line)">Paper<span>#FDFDF7</span></div>
+  <div style="background:var(--line);color:#17141A">Line<span>#E4E4E4</span></div>
+ </div>
+ <div class="mono2"><b>01</b><div><span>Geist Mono</span><small>Labels and numbers</small></div></div>
+ <div class="type">
+  <div class="aa">Aa</div>
+  <div class="nm">Instrument Sans</div>
+  <div class="gl">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+  <div class="mono">Headlines · body · buttons</div>
+ </div>
+ <div class="shot"><img src="sm-phone.jpg" style="object-position:20% 40%"></div>
+</section>
+
+<!-- 05 HOME 1 -->
+<section class="panel home" id="home1">
+ <svg class="xo" viewBox="106 0 62 46" style="left:-300px;top:2300px;width:1300px"><use href="#X" style="stroke:rgba(255,255,255,.08)"/></svg>
+ <svg class="xo" viewBox="106 0 62 46" style="left:1100px;top:4300px;width:1300px"><use href="#X" style="stroke:rgba(255,255,255,.08)"/></svg>
+ <div class="mono" style="position:absolute;left:150px;top:110px;color:rgba(255,255,255,.7)">03 · Home page</div>
+ <h2 class="t">Home page</h2>
+ <div class="side mono">Part 1 / 2<br>Opening → mentors</div>
+ <div class="frame"><img src="home1.jpg"></div>
+ <div class="lab mono" style="top:560px">01<b>Opening</b></div>
+ <div class="lab mono" style="top:1650px">02<b>Get hired from</b></div>
+ <div class="lab mono" style="top:2600px">03<b>Awards &amp; recognitions</b></div>
+ <div class="lab mono" style="top:3900px">04<b>Courses</b></div>
+ <div class="lab mono" style="top:4480px">05<b>Why SkillX</b></div>
+ <div class="lab mono" style="top:5420px">06<b>Mentors</b></div>
+</section>
+
+<!-- 06 HOME 2 -->
+<section class="panel home" id="home2">
+ <svg class="xo" viewBox="106 0 62 46" style="left:-320px;top:1500px;width:1300px"><use href="#X" style="stroke:rgba(255,255,255,.08)"/></svg>
+ <svg class="xo" viewBox="106 0 62 46" style="left:1080px;top:3800px;width:1300px"><use href="#X" style="stroke:rgba(255,255,255,.08)"/></svg>
+ <div class="frame"><img src="home2.jpg"></div>
+ <div class="lab mono" style="top:600px">07<b>Certifications</b></div>
+ <div class="lab mono" style="top:1080px">08<b>Placements</b></div>
+ <div class="lab mono" style="top:2140px">09<b>Success stories</b></div>
+ <div class="lab mono" style="top:2830px">10<b>Media &amp; webinars</b></div>
+ <div class="lab mono" style="top:3490px">11<b>Request a callback</b></div>
+</section>
+
+<!-- 07 FUNNEL -->
+<section class="panel" id="funnel">
+ <svg class="xo" viewBox="106 0 62 46" style="left:-200px;top:1180px;width:1200px"><use href="#X" style="stroke:rgba(255,255,255,.12)"/></svg>
+ <div class="k mono">04 · The enquiry funnel</div>
+ <h2 class="t">One ask,<br><em>every page.</em></h2>
+ <div class="lede">Every page leads to the same action: talk to a counsellor. Call and WhatsApp stay one tap away.</div>
+ <div class="steps">
+  <div><span>01</span>Enquire Now, on every page</div>
+  <div><span>02</span>Talk to an expert</div>
+  <div><span>03</span>Choose a course</div>
+  <div><span>04</span>Request a callback</div>
+ </div>
+ <div class="phone"><img src="mob-expert.jpg"></div>
+ <div class="frame wide"><img src="callback.jpg"></div>
+ <div class="tab">Enquire Now</div>
+ <div class="fab" style="left:1640px;top:1470px;background:#1F6FE5"><svg width="40" height="40" viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+ <div class="fab" style="left:1760px;top:1470px;background:#25D366"><svg width="44" height="44" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></div>
+</section>
+
+<!-- 08 COURSES -->
+<section class="panel" id="courses">
+ <svg class="xo" viewBox="106 0 62 46" style="left:1080px;top:-80px;width:1100px"><use href="#X" style="stroke:rgba(255,255,255,.14)"/></svg>
+ <div class="k mono">05 · Course pages</div>
+ <h2 class="t">Course pages</h2>
+ <div class="toggle"><span style="background:#fff;color:var(--purple)">Digital Marketing</span><span>Graphic Design</span></div>
+ <div class="persp p1"><div class="frame"><img src="dm.jpg"></div></div>
+ <div class="persp p2"><div class="frame"><img src="gd.jpg"></div></div>
+ <img class="glow" src="sm-glassx-2.jpg" style="left:1400px;top:150px;width:600px;z-index:3">
+ <div class="cap" style="left:150px;top:2340px"><small>01</small>Digital Marketing Course</div>
+ <div class="cap" style="right:150px;top:2340px;text-align:right"><small>02</small>Graphic Design Course</div>
+</section>
+
+<!-- 09 STORIES -->
+<section class="panel" id="stories">
+ <div class="k mono">06 · Stories &amp; about</div>
+ <h2 class="t">Stories<br><em>&amp; about.</em></h2>
+ <div class="print" style="left:1010px;top:110px;width:380px;height:676px;transform:rotate(-3deg)"><img src="sm-p-paper.jpg"></div>
+ <div class="print" style="left:1390px;top:170px;width:380px;height:676px;transform:rotate(3deg)"><img src="sm-halftone.jpg"></div>
+ <div class="frame f1"><img src="st.jpg"></div>
+ <div class="frame f2"><img src="ab.jpg"></div>
+ <div class="cap" style="left:150px;top:2210px"><small>03</small>SkillX Stories</div>
+ <div class="cap" style="left:1070px;top:2410px"><small>04</small>About</div>
+</section>
+
+<!-- 10 CLOSE -->
+<section class="panel" id="close">
+ <div class="k mono">intervalskillx.com</div>
+ <p>X is the skill that <em>multiplies</em> your potential.</p>
+ <div class="btn" style="left:150px;top:720px;background:#fff;color:var(--ink)">Enroll Now <b style="background:var(--purple);color:#fff">→</b></div>
+ <img class="glow" src="sm-glassx-3.jpg" style="left:1000px;top:0px;width:1200px">
+ <div class="foot"><img src="logo-w.svg"><span class="mono">Website design · Designed by Saf</span></div>
+</section>
+
+<script>
+const id=(location.hash||'#hero').slice(1);
+document.getElementById(id).classList.add('on');
+</script>
+</body></html>
